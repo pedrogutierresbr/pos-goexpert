@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: goexpert
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+
+
+# Sempre estar com o docker desktop aberto (windows exige isso)
+# Para rodar o docker: docker-compose up -d
+# para entrar no bash: docker-compose exec mysql bash
+# conectar ao servidor mysql: mysql -uroot -p goexpert
+# digita a senha
+
+# criando a tabela do exercicio aula 1-sql
+# create table products (id varchar(255), name varchar(80), price decimal(10,2), primary key(id));
+
+# Para a aula 2-gorm 
+# para acessar o mysql dentro do container quando não tem nada criado --> mysql -uroot -p 
+# para deletar o banco --> drop database {nome do banco};
+# para criar um database (lembre-se de estar no terminal do bash mysql) --> create database goexpert; 
+
+# para selecionar um banco dentro do container --> USE {nome do banco};
+
+# exibir tudo que tenho no db --> select * from products; 
+
+# para deletar a tabela inteira sem deletar o banco --> drop table {nome da tabela};
+# visualizar as tabelas do banco --> show tables;
+# trazer a descrição do que foi criado --> desc {nome da tabela}; 
