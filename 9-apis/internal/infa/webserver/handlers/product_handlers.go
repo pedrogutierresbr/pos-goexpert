@@ -19,8 +19,8 @@ func NewProductHandler(db database.ProductInterface) *ProductHandler {
 	}
 }
 
-func (h *ProductHandler) CreateProductInput(w http.ResponseWriter, r *http.Request) {
-	var product dto.CreateProductInput
+func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
+	var product dto.CreateProduct
 	err := json.NewDecoder(r.Body).Decode(&product) //decodifica e salva no product
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
