@@ -10,3 +10,12 @@ Content-Type: application/json
 
 GET http://localhost:8000/products/566ab788-8db8-4ba8-a50b-ace6be5ce203 HTTP/1.1
 Content-Type: application/json
+
+###
+PUT http://localhost:8000/products/566ab788-8db8-4ba8-a50b-ace6be5ce203 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Cadeira para escritório",
+    "price": 1600
+}
