@@ -4,13 +4,16 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/dto"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/entity"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/infa/database"
 )
 
 type UserHandler struct {
-	UserDB database.UserInterface
+	UserDB       database.UserInterface
+	Jwt          *jwtauth.JWTAuth
+	JwtExpiresIn int
 }
 
 func NewUserHandler(userDB database.UserInterface) *UserHandler {
