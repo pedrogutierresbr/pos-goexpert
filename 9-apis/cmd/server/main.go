@@ -29,14 +29,18 @@ func main() {
 	productHandler := handlers.NewProductHandler(productDB)
 
 	userDB := database.NewUser(db)
-	userHandler := handlers.NewUserHandler(userDB, configs.TokenAuth, configs.JwtExpiresIn)
+	userHandler := handlers.NewUserHandler(userDB)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer) // serve para não deixar app cair, mesmo tendo algum erro
+	r.Use(middleware.WithValue("jwt", configs.TokenAuth))
+	r.Use(middleware.WithValue("JwtExpiresIn", configs.JwtExpiresIn))
+	// r.Use(LogRequest) middleware feito a mão para exemplificar aula
 
 	r.Route("/products", func(r chi.Router) {
-		r.Use(jwtauth.Verifier(configs.TokenAuth))
-		r.Use(jwtauth.Authenticator(configs.TokenAuth))
+		r.Use(jwtauth.Verifier(configs.TokenAuth))      // verifica se tem um token na requisição
+		r.Use(jwtauth.Authenticator(configs.TokenAuth)) // valida se o token da requisição é autorizado
 		r.Post("/", productHandler.CreateProduct)
 		r.Get("/", productHandler.GetProducts)
 		r.Get("/{id}", productHandler.GetProduct)
@@ -49,3 +53,11 @@ func main() {
 
 	http.ListenAndServe(":8000", r)
 }
+
+// middleware feito a mão para exemplificar aula
+// func LogRequest(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		log.Println(r.Method, r.URL.Path)
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
