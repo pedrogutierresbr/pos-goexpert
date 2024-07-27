@@ -14,6 +14,23 @@ import (
 	"gorm.io/gorm"
 )
 
+// @title Go Expert API Example
+// @version 1.0
+// @description Product API with authentication
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Pedro Gutierres
+// @contact.url https://www.linkedin.com/in/pedrogabrielgutierres/
+// @contact.email pedro@gutierres.com.br
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
+// @BasePath /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	configs, err := configs.LoadConfig(".")
 	if err != nil {
