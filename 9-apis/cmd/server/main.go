@@ -7,9 +7,11 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth/v5"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/configs"
+	_ "github.com/pedrogutierresbr/pos-goexpert/9-apis/docs"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/entity"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/infa/database"
 	"github.com/pedrogutierresbr/pos-goexpert/9-apis/internal/infa/webserver/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -21,12 +23,12 @@ import (
 
 // @contact.name Pedro Gutierres
 // @contact.url https://www.linkedin.com/in/pedrogabrielgutierres/
-// @contact.email pedro@gutierres.com.br
+// @contact.email pedrogabrielgutierres@gmail.com
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8080
+// @host localhost:8000
 // @BasePath /
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
@@ -67,6 +69,8 @@ func main() {
 
 	r.Post("/users", userHandler.Create)
 	r.Post("/users/generate_token", userHandler.GetJWT)
+
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	http.ListenAndServe(":8000", r)
 }

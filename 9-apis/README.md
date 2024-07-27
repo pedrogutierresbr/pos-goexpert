@@ -16,4 +16,6 @@ swag init -g cmd/server/main.go
 
 - tem que ser assim, apontando pro arquivo quandos e cria do root do repositório
 - tem que apontar pro arquivo de bootstrap da aplicação
+
+para acessar a doc, abra no navegador: http://localhost:8000/docs/index.html
 ```

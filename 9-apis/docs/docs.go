@@ -13,7 +13,7 @@ const docTemplate = `{
         "contact": {
             "name": "Pedro Gutierres",
             "url": "https://www.linkedin.com/in/pedrogabrielgutierres/",
-            "email": "pedro@gutierres.com.br"
+            "email": "pedrogabrielgutierres@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -36,7 +36,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "localhost:8000",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Go Expert API Example",

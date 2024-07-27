@@ -1,8 +1,8 @@
 basePath: /
-host: localhost:8080
+host: localhost:8000
 info:
   contact:
-    email: pedro@gutierres.com.br
+    email: pedrogabrielgutierres@gmail.com
     name: Pedro Gutierres
     url: https://www.linkedin.com/in/pedrogabrielgutierres/
   description: Product API with authentication
