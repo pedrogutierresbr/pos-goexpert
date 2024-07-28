@@ -59,11 +59,11 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 // @Tags         products
 // @Accept       json
 // @Produce      json
-// @Param        page    query   string  false  "page number"
-// @Param        limit   query   string  false  "limit"
-// @Success      200	 {array} entity.Product
-// @Failure      404  {object}  Error
-// @Failure      500  {object}  Error
+// @Param        page    	query   string  false  "page number"
+// @Param        limit		query   string  false  "limit"
+// @Success      200	{array} entity.Product
+// @Failure      404  	{object}  Error
+// @Failure      500  	{object}  Error
 // @Router       /products [get]
 // @Security     ApiKeyAuth
 func (h *ProductHandler) GetProducts(w http.ResponseWriter, r *http.Request) {
@@ -96,8 +96,8 @@ func (h *ProductHandler) GetProducts(w http.ResponseWriter, r *http.Request) {
 // @Tags         products
 // @Accept       json
 // @Produce      json
-// @Param        id		path   string  true  "product ID" Format(uuid)
-// @Success      200 	{object} entity.Product
+// @Param        id		path   		string  		true  "product ID" Format(uuid)
+// @Success      200 	{object} 	entity.Product
 // @Failure      404
 // @Failure      500  {object}  Error
 // @Router       /products/{id} [get]
@@ -118,6 +118,19 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+// Update Product godoc
+// @Summary      Update a product
+// @Description  Update a product
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        id				path   string  					true  "product ID" Format(uuid)
+// @Param        request		body   dto.CreateProductInput  	true  "product request"
+// @Success      200
+// @Failure      404
+// @Failure      500  {object}  Error
+// @Router       /products/{id} [put]
+// @Security     ApiKeyAuth
 func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
