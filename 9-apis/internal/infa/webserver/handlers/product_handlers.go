@@ -61,7 +61,7 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 // @Produce      json
 // @Param        page    query   string  false  "page number"
 // @Param        limit   query   string  false  "limit"
-// @Success      201	 {array} entity.Product
+// @Success      200	 {array} entity.Product
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
 // @Router       /products [get]
@@ -90,6 +90,18 @@ func (h *ProductHandler) GetProducts(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(products)
 }
 
+// Get Product godoc
+// @Summary      Get a product
+// @Description  Get a product
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        id		path   string  true  "product ID" Format(uuid)
+// @Success      200 	{object} entity.Product
+// @Failure      404
+// @Failure      500  {object}  Error
+// @Router       /products/{id} [get]
+// @Security     ApiKeyAuth
 func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
