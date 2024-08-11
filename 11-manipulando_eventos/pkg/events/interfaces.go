@@ -1,6 +1,9 @@
 package events
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
 // Evento
 type EventInterface interface {
@@ -11,7 +14,7 @@ type EventInterface interface {
 
 // Operação que executa o evento
 type EventHandlerInterface interface {
-	Handle(event EventInterface)
+	Handle(event EventInterface, wg *sync.WaitGroup)
 }
 
 // Gerenciador eventos/operações
