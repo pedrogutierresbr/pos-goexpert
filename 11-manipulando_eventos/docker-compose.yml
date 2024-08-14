@@ -1,0 +1,26 @@
+version : "3"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.8.16-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+
+
+# SUBIR O CONTAINER
+# docker-compose up -d
+
+# PEGAR INFOS SOBRE O CONTAINER
+# docker-compose ps
+
+# VERIFICAR SE TRAZ ALGUM RETORNO (GARANTIR QUE ESTÁ DE PÉ)
+# curl http://localhost:15672  (tem que ser em um terminal a parte ou no navegador entrar nesse localhost)
+# **no navegar use as credenciais definidas ai em cima, pra entrar na área de adm**
