@@ -26,7 +26,15 @@ func (r *mutationResolver) CreateCategory(ctx context.Context, input model.NewCa
 
 // CreateCourse is the resolver for the createCourse field.
 func (r *mutationResolver) CreateCourse(ctx context.Context, input model.NewCourse) (*model.Course, error) {
-	panic(fmt.Errorf("not implemented: CreateCourse - createCourse"))
+	couse, err := r.CouseDb.Create(input.Name, *input.Description, input.CategoryID)
+	if err != nil {
+		return nil, err
+	}
+	return &model.Course{
+		ID:          couse.ID,
+		Name:        couse.Name,
+		Description: &couse.Description,
+	}, nil
 }
 
 // Categories is the resolver for the categories field.

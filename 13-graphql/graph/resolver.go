@@ -8,4 +8,5 @@ import "github.com/pedrogutierresbr/pos-goexpert/12-graphql/internal/database"
 
 type Resolver struct {
 	CategoryDB *database.Category
+	CouseDb    *database.Course
 }
