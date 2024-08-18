@@ -36,3 +36,10 @@ type Mutation {
 # model --> estruturas
 # input --> dados de entrada
 # mutation --> para alterar dados
+
+# Nesse módulo, usamos a lib gqlgen para auxiliar na estrutura da arquitetura GraphQL
+# doc --> https://gqlgen.com/
+# use a doc para pegar os comandos necessários
+
+# go run github.com/99designs/gqlgen init       --> inicia o projeto
+# go run github.com/99designs/gqlgen generate   --> faz as alterações, caso tenha mudado o schema
