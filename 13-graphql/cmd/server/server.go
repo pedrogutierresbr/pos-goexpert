@@ -24,9 +24,9 @@ func main() {
 	defer db.Close()
 
 	// criado arquivo categoria que manipula o banco de dados
-	// criado arquivo couse que manipula o banco de dados
+	// criado arquivo course que manipula o banco de dados
 	categoryDb := database.NewCategory(db)
-	couseDb := database.NewCourse(db)
+	courseDb := database.NewCourse(db)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -36,7 +36,7 @@ func main() {
 	// injeto categoria no resolver
 	// injeto course no resolver
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
-		CategoryDB: categoryDb, CouseDb: couseDb,
+		CategoryDB: categoryDb, CourseDb: courseDb,
 	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
