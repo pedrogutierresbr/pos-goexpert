@@ -37,12 +37,14 @@ func main() {
 	}
 }
 
+// client gRPC Evans --> programa feito em go, criado para interagir com gRPC
+// go install github.com/ktr0731/evans@latest
 // interagindo com o evans
 
 // evans -r repl
-//  package pb
-//  service CategoryService
-//  call CreateCategory
+// package pb
+// service CategoryService
+// call CreateCategory
 
 // agora insere o name, exemplo: cat 3
 // insere a description, exemplo: cat 3 desc
