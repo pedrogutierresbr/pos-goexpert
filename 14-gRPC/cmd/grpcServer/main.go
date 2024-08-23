@@ -9,6 +9,8 @@ import (
 	"github.com/pedrogutierresbr/pos-goexpert/14-grpc/internal/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
@@ -34,3 +36,13 @@ func main() {
 		panic(err)
 	}
 }
+
+// interagindo com o evans
+
+// evans -r repl
+//  package pb
+//  service CategoryService
+//  call CreateCategory
+
+// agora insere o name, exemplo: cat 3
+// insere a description, exemplo: cat 3 desc
