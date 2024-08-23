@@ -48,3 +48,7 @@ func main() {
 
 // agora insere o name, exemplo: cat 3
 // insere a description, exemplo: cat 3 desc
+
+//  ou
+
+// call ListCategories
