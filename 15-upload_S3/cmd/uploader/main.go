@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sync"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -16,6 +17,7 @@ import (
 var (
 	s3Client *s3.S3
 	s3Bucket string
+	wg       sync.WaitGroup
 )
 
 // configuração AWS session
@@ -54,13 +56,16 @@ func main() {
 			fmt.Printf("Error reading directory: %s\n", err)
 			continue
 		}
-		uploadFile(files[0].Name())
+		wg.Add(1)
+		go uploadFile(files[0].Name())
 	}
+	wg.Wait()
 }
 
 func uploadFile(filename string) {
+	defer wg.Done()
 	completeFileName := fmt.Sprintf("./tmp/%s", filename)
-	fmt.Printf("Uploading file %s to bucket %s", completeFileName, s3Bucket)
+	fmt.Printf("Uploading file %s to bucket %s\n", completeFileName, s3Bucket)
 	f, err := os.Open(completeFileName)
 	if err != nil {
 		fmt.Printf("Error opening file %s\n", completeFileName)
@@ -78,3 +83,7 @@ func uploadFile(filename string) {
 	}
 	fmt.Printf("File %s uploaded sucessfully\n", completeFileName)
 }
+
+// é necessário adicionar um limitador de go routines
+// senão, erros como: rate limiter de aws, infinitas threads podem pesar o computador
+// irão acontecer
