@@ -49,7 +49,25 @@ func main() {
 
 	// criado channel dessa forma, para ter controle da qtd de routines criadas para upload
 	// limitador de go routines
-	uploadControl := make(chan struct{}, 50)
+	uploadControl := make(chan struct{}, 50) // até 50 threads ao mesmo tempo (pode alterar o valor se quiser)
+
+	//para descobrir qual canal falhou
+	// todo erro que acontecer, vou jogar o nome do erro nesse canal
+	errorFileUpload := make(chan string, 5) // criado um buffer de x quantidades, para ficar cuidando dos erros, caso sejam criados muitos erros
+
+	// fallback para erros
+	//fica verificando, se cair um erro no canal, vai retentar o upload (thread criada para aguardar erros que chegam)
+	go func() {
+		for {
+			select {
+			case filename := <-errorFileUpload:
+				uploadControl <- struct{}{}
+				wg.Add(1)
+				go uploadFile(filename, uploadControl, errorFileUpload)
+			}
+		}
+	}()
+
 	for {
 		files, err := dir.ReadDir(1)
 		if err != nil {
@@ -61,19 +79,20 @@ func main() {
 		}
 		wg.Add(1)
 		uploadControl <- struct{}{}
-		go uploadFile(files[0].Name(), uploadControl)
+		go uploadFile(files[0].Name(), uploadControl, errorFileUpload) // threads criadas para fazer upload em paralelo
 	}
 	wg.Wait()
 }
 
-func uploadFile(filename string, uploadControl <-chan struct{}) {
+func uploadFile(filename string, uploadControl <-chan struct{}, errorFileUpload chan<- string) {
 	defer wg.Done()
 	completeFileName := fmt.Sprintf("./tmp/%s", filename)
 	fmt.Printf("Uploading file %s to bucket %s\n", completeFileName, s3Bucket)
 	f, err := os.Open(completeFileName)
 	if err != nil {
 		fmt.Printf("Error opening file %s\n", completeFileName)
-		<-uploadControl //esvazia o canal
+		<-uploadControl                     //esvazia o canal
+		errorFileUpload <- completeFileName // joga o erro no canal errorFileUpload, que esta sendo observado ali em cima (avisa que o erro aconteceu)
 		return
 	}
 	defer f.Close()
@@ -85,7 +104,8 @@ func uploadFile(filename string, uploadControl <-chan struct{}) {
 	})
 	if err != nil {
 		fmt.Printf("Error uploading file %s\n", completeFileName)
-		<-uploadControl //esvazia o canal
+		<-uploadControl                     //esvazia o canal
+		errorFileUpload <- completeFileName // joga o erro no canal errorFileUpload, que esta sendo observado ali em cima (avisa que o erro aconteceu)
 		return
 	}
 	fmt.Printf("File %s uploaded sucessfully\n", completeFileName)
