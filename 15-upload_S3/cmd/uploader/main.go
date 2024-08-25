@@ -47,6 +47,9 @@ func main() {
 	}
 	defer dir.Close()
 
+	// criado channel dessa forma, para ter controle da qtd de routines criadas para upload
+	// limitador de go routines
+	uploadControl := make(chan struct{}, 50)
 	for {
 		files, err := dir.ReadDir(1)
 		if err != nil {
@@ -57,18 +60,21 @@ func main() {
 			continue
 		}
 		wg.Add(1)
-		go uploadFile(files[0].Name())
+		uploadControl <- struct{}{}
+		go uploadFile(files[0].Name(), uploadControl)
 	}
 	wg.Wait()
 }
 
-func uploadFile(filename string) {
+func uploadFile(filename string, uploadControl <-chan struct{}) {
 	defer wg.Done()
 	completeFileName := fmt.Sprintf("./tmp/%s", filename)
 	fmt.Printf("Uploading file %s to bucket %s\n", completeFileName, s3Bucket)
 	f, err := os.Open(completeFileName)
 	if err != nil {
 		fmt.Printf("Error opening file %s\n", completeFileName)
+		<-uploadControl //esvazia o canal
+		return
 	}
 	defer f.Close()
 
@@ -79,9 +85,11 @@ func uploadFile(filename string) {
 	})
 	if err != nil {
 		fmt.Printf("Error uploading file %s\n", completeFileName)
+		<-uploadControl //esvazia o canal
 		return
 	}
 	fmt.Printf("File %s uploaded sucessfully\n", completeFileName)
+	<-uploadControl //esvazia o canal
 }
 
 // é necessário adicionar um limitador de go routines
