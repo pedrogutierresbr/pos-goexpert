@@ -27,3 +27,7 @@
 
 <!-- make migrate -->
 <!-- make migratedown -->
+
+
+<!-- Gerar as querys pelo SQLC -->
+<!-- sqlc generate -->
