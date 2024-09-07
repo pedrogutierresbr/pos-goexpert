@@ -2,11 +2,12 @@
 SELECT * FROM categories;
 
 -- name: GetCategory :one
-SELECT * FROM categories WHERE id = ?;
+SELECT * FROM categories 
+WHERE id = ?;
 
 -- name: CreateCategory :exec
 INSERT INTO categories (id, name, description) 
-VALUES (?, ?, ?);
+VALUES (?,?,?);
 
 -- name: UpdateCategory :exec
 UPDATE categories SET name = ?, description = ? 
@@ -17,4 +18,8 @@ DELETE FROM categories WHERE id = ?;
 
 -- name: CreateCourse :exec
 INSERT INTO courses (id, name, description, category_id, price)
-VALUES (?, ?, ?, ?, ?)
+VALUES (?,?,?,?,?);
+
+-- name: ListCourses :many
+SELECT c.*, ca.name as category_name 
+FROM courses c JOIN categories ca ON c.category_id = ca.id;
