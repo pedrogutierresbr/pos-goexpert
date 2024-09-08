@@ -1,0 +1,22 @@
+UOW -> Unity of Work
+
+{
+    Begin
+    Transação 1 -> Repo 1
+    Transação 2 -> Repo 2
+    COMMIT / ROLLBACK
+}
+
+-> Repositorios -> UOW -> gtRepository -> Repositorio(TX)
+
+Register
+gtRepository
+Unregister
+DO (fn func(uow uow) error) error {
+    BEGIN
+    Transacao 1 -> Repo 1
+    Transacao 2 -> Repo 1
+    COMMIT / ROLLBACK
+}
+
+fn(u)
