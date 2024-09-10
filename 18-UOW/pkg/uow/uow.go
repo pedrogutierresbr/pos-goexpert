@@ -42,7 +42,7 @@ func (u *Uow) UnRegister(name string) {
 func (u *Uow) Do(ctx context.Context, fn func(Uow *Uow) error) error {
 	// inicializado transação
 	if u.Tx != nil {
-		return fmt.Errorf("Transaction already started")
+		return fmt.Errorf("transaction already started")
 	}
 	tx, err := u.Db.BeginTx(ctx, nil)
 	if err != nil {
@@ -55,7 +55,7 @@ func (u *Uow) Do(ctx context.Context, fn func(Uow *Uow) error) error {
 	if err != nil {
 		errRb := u.Rollback()
 		if errRb != nil {
-			return errors.New(fmt.Sprintf("Original error: %s, rollback error: %s", err.Error(), errRb.Error()))
+			return fmt.Errorf(fmt.Sprintf("original error: %s, rollback error: %s", err.Error(), errRb.Error()))
 		}
 		return err
 	}
@@ -64,7 +64,7 @@ func (u *Uow) Do(ctx context.Context, fn func(Uow *Uow) error) error {
 
 func (u *Uow) Rollback() error {
 	if u.Tx == nil {
-		return errors.New("No transaction to rollback")
+		return errors.New("no transaction to rollback")
 	}
 	err := u.Tx.Rollback()
 	if err != nil {
@@ -79,7 +79,7 @@ func (u *Uow) CommitOrRollback() error {
 	if err != nil {
 		errRb := u.Rollback()
 		if errRb != nil {
-			return errors.New(fmt.Sprintf("Original error: %s, rollback error: %s", err.Error(), errRb.Error()))
+			return fmt.Errorf(fmt.Sprintf("original error: %s, rollback error: %s", err.Error(), errRb.Error()))
 		}
 		return err
 	}
