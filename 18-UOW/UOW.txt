@@ -20,3 +20,7 @@ DO (fn func(uow uow) error) error {
 }
 
 fn(u)
+
+
+UOW: é um padrão de projeto que:
+SERVE PARA GARANTIR INTEGRIDADE DA PERSISTÊNCIA DOS DADOS NO BANCO DE DADOS
