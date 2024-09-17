@@ -22,3 +22,5 @@ func main() {
 
 	fmt.Println(product.Name)
 }
+
+// go run main.go wire_gen.go
