@@ -10,9 +10,14 @@ import (
 	"github.com/pedrogutierresbr/pos-goexpert/19-DI/product"
 )
 
+var setRepositoryDependency = wire.NewSet(
+	product.NewProductRepository,
+	wire.Bind(new(product.ProductRepositoryInterface), new(*product.ProductRepository)),
+)
+
 func NewUseCase(db *sql.DB) *product.ProductUseCase {
 	wire.Build(
-		product.NewProductRepository,
+		setRepositoryDependency,
 		product.NewProductUseCase,
 	)
 	return &product.ProductUseCase{}
