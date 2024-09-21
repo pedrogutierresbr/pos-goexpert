@@ -2,7 +2,10 @@ module github.com/pedrogutierresbr/pos-goexpert/20-clean_arch
 
 go 1.22.4
 
-require github.com/stretchr/testify v1.9.0
+require (
+	github.com/mattn/go-sqlite3 v1.14.23
+	github.com/stretchr/testify v1.9.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
