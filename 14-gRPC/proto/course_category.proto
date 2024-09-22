@@ -33,7 +33,7 @@ service CategoryService {
 } 
 
 // Comando para gerar código com protoc
-// protoc --go_out=. --go-grpc_out=. proto/course_category.proto
+// protoc --go_out=. --go-grpc_out=. proto/course_category.proto --> (proto/course_category.proto -- referece ao caminho do arquivo .proto)
 
 //  --go_out=. --> chamada do plugin que vai gerar as entidades (arquivos das mensagens)
 //  --go-grpc_out=.  --> vai gerar o arquivo para usar o gRPC
