@@ -7,7 +7,7 @@ package graph
 import (
 	"context"
 
-	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/graph/model"
+	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/internal/infra/graph/model"
 	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/internal/usecase"
 )
 

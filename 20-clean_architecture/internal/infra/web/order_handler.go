@@ -6,6 +6,7 @@ import (
 
 	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/internal/entity"
 	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/internal/usecase"
+	"github.com/pedrogutierresbr/pos-goexpert/20-clean_arch/pkg/events"
 )
 
 type WebOrderHandler struct {
