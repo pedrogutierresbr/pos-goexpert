@@ -21,7 +21,7 @@ $ docker-compose up -d
 $ docker-compose exec mysql bash
 $ mysql -uroot -p orders
 $ password: root
-$ CREATE TABLE orders (id varchar(255) NOT NULL, price float NOT NULL, tax float NOT NULL, final_price float NOT NULL, PRIMARY KEY (id))
+$ CREATE TABLE orders (id varchar(255) NOT NULL, price float NOT NULL, tax float NOT NULL, final_price float NOT NULL, PRIMARY KEY (id));
 $ select * from orders; 
 
 Para rodar o projeto
@@ -36,7 +36,11 @@ utilizar o create_order.http
 Para mandar uma REQ gRPC
 abre um terminal
 $ evans -r repl
-$ call createOrder
+Pode ser que vc entre e o package e service não estejam selecionados
+ai precisa selecionar manualmente
+$ package <escolhe pb>
+$ service <escolhe OrderService>
+$ call CreateOrder
 $ coloca os inputs pedidos
 
 
