@@ -2,7 +2,7 @@ Destinado a centralizar comandos para este projeto
 
 gRPC
 Para criar arquivos (pasta pb)
-$ protoc --go_out=. --go-grpc_out=. internal/infra/grpc/protofiles/order.proto  
+$ protoc --go_out=. --go-grpc_out=. internal/infra/grpc/protofiles/order.proto
 
 
 GraphQL
@@ -23,10 +23,6 @@ $ mysql -uroot -p orders
 $ password: root
 $ CREATE TABLE orders (id varchar(255) NOT NULL, price float NOT NULL, tax float NOT NULL, final_price float NOT NULL, PRIMARY KEY (id));
 $ select * from orders; 
-
-Para criar o arquivo wire
-entre na pasta onde esta o arquivo wire.go
-$ wire
 
 Para rodar o projeto
 cd cmd/ordersystem/
