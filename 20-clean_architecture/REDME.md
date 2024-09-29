@@ -15,7 +15,7 @@ Para refletir as alterações que vc fez no schema, use
 $ go run github.com/99designs/gqlgen generate
 
 Para criar arquivos de migration
-$ migrate create -ext=sql -dir= {pasta de destino}
+$ migrate create -ext=sql -dir= {pasta de destino} -seq init
 
 Para subir o db e rabbitMQ
 abre um terminal
